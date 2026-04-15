@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Set Up Your WhatsApp Agent — AlmaReach AI</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 40px 16px;
+    }
+    .container {
+      width: 100%;
+      max-width: 560px;
+    }
+    .logo {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .logo h1 {
+      color: #00d4aa;
+      font-size: 28px;
+      margin-bottom: 4px;
+    }
+    .logo p {
+      color: #888;
+      font-size: 14px;
+    }
+    .card {
+      background: #1a1a2e;
+      border-radius: 16px;
+      padding: 32px;
+    }
+    .card h2 {
+      color: #fff;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+    .card .subtitle {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .field {
+      margin-bottom: 20px;
+    }
+    .field label {
+      display: block;
+      color: #ccc;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .field label .req {
+      color: #ff6b6b;
+    }
+    .field input,
+    .field textarea,
+    .field select {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: #0d0d1a;
+      color: #fff;
+      font-size: 15px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: #00d4aa;
+    }
+    .field textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    .field .hint {
+      color: #666;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+    .field select option {
+      background: #0d0d1a;
+      color: #fff;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #00d4aa;
+      color: #0a0a0a;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+      margin-top: 8px;
+    }
+    .submit-btn:hover {
+      background: #00e6b8;
+    }
+    .submit-btn:disabled {
+      background: #444;
+      cursor: not-allowed;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 24px;
+      color: #555;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <h1>AlmaReach AI</h1>
+      <p>by Alma Digital Services</p>
+    </div>
+
+    <div class="card">
+      <h2>Set Up Your WhatsApp Agent</h2>
+      <p class="subtitle">Tell us about your business so we can customize your AI agent. This takes about 2 minutes.</p>
+
+      <form id="onboardingForm" action="{{BASE_URL}}/onboarding/{{SESSION_ID}}" method="POST">
+        <div class="field">
+          <label>Business Name <span class="req">*</span></label>
+          <input type="text" name="businessName" required placeholder="e.g., Miami Auto Repair">
+        </div>
+
+        <div class="field">
+          <label>Business Type <span class="req">*</span></label>
+          <input type="text" name="businessType" required placeholder="e.g., Auto repair shop, Restaurant, Law firm">
+        </div>
+
+        <div class="field">
+          <label>Services You Offer <span class="req">*</span></label>
+          <textarea name="services" required placeholder="List your main services, pricing if applicable. The more detail you give, the better your AI agent will be."></textarea>
+          <div class="hint">Example: Oil changes ($39), brake repair, tire rotation, AC repair, engine diagnostics. Free estimates on all services.</div>
+        </div>
+
+        <div class="field">
+          <label>Business Hours</label>
+          <input type="text" name="businessHours" placeholder="e.g., Mon-Fri 8am-6pm, Sat 9am-2pm">
+        </div>
+
+        <div class="field">
+          <label>Booking / Appointment Link</label>
+          <input type="url" name="bookingLink" placeholder="https://calendly.com/yourbusiness">
+          <div class="hint">If you have an online booking page, paste the link here. Otherwise we'll have the agent collect contact info.</div>
+        </div>
+
+        <div class="field">
+          <label>Notification Email</label>
+          <input type="email" name="notificationEmail" value="{{CLIENT_EMAIL}}" placeholder="Where should we send human-handoff alerts?">
+          <div class="hint">When a customer asks to speak to a human, you'll get an email with the full conversation.</div>
+        </div>
+
+        <div class="field">
+          <label>Agent Language</label>
+          <select name="language">
+            <option value="both">English & Spanish (auto-detect)</option>
+            <option value="EN">English only</option>
+            <option value="ES">Spanish only</option>
+          </select>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">Launch My WhatsApp Agent</button>
+      </form>
+    </div>
+
+    <div class="footer">
+      Alma Digital Services — Miami, FL &middot; Powered by AlmaReach AI
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('onboardingForm').addEventListener('submit', function() {
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.textContent = 'Setting up your agent...';
+    });
+  </script>
+</body>
+</html>
